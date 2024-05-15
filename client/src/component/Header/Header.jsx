@@ -20,6 +20,7 @@ function Header() {
             <Link to="/about" className="hover:text-[#FC8019]">About</Link>
             <Link to="/login" className="hover:text-[#FC8019]">Login</Link>
             <Link to="/register" className="hover:text-[#FC8019]">Register</Link>
+            <Link to="/cart" className="hover:text-[#FC8019]">Cart</Link>
           </div>
         </div>
       </div>

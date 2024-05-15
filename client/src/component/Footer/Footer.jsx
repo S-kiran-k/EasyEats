@@ -20,15 +20,15 @@ function Footer() {
             <div className="flex flex-col justify-start items-center py-5">
               <div className="flex flex-col gap-3">
                 <p className="font-medium text-[18px]">Company</p>
-                <p>About</p>
-                <p>Careers</p>
-                <p>Team</p>
+                <Link to="/about">About</Link>
+                <Link to="/search">Search</Link>
+                <Link to="/cart">Cart</Link>
               </div>
             </div>
             <div className="flex flex-col pl-6 py-5  ">
               <div className="flex flex-col gap-3  ">
                 <p className="font-medium text-[18px]">Contact us</p>
-                <p>Help & Support</p>
+                <p> Help & Support</p>
                 <p> Partner with us</p>
                 <p> Ride with us</p>
               </div>

@@ -1,0 +1,9 @@
+.back-img{
+    background-image: url("https://ik.imagekit.io/0oeuxr64bc/Easy%20Eats/frontend_assets/header_img.png?updatedAt=1715666560421");
+    height: 60vh;
+    background-size: cover;
+    border-radius: 25px;
+    padding-top:5px ;
+    padding-bottom: 5px;
+    margin:5px;
+}
