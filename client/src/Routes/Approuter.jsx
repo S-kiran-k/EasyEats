@@ -1,5 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
+import ViewMore from '../component/ViewMore/ViewMore';
+import Errorpage from '../component/Errorpage/Errorpage';
 
 const Login = lazy(() => import('../component/Login/Login'));
 const Applayout = lazy(() => import('../Applayout/Applayout'));
@@ -49,7 +51,7 @@ const Approuter = createBrowserRouter([
                     </Suspense>
                 ),
             },
-        ],
+        ], errorElement: <Errorpage /> 
     },
     {
         path: "/search",
@@ -62,7 +64,13 @@ const Approuter = createBrowserRouter([
     {
         path:"/cart",
         element:<Cart/>
+    },{
+        path:"/viewmenu",
+        element:<ViewMore/>
+    },{
+        errorElement: <Errorpage />  
     }
-]);
+ 
+],);
 
 export default Approuter;
