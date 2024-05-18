@@ -33,7 +33,7 @@ function Header() {
     {/* //   </div> */} 
       
       <div className="2xl:container mx-auto">
-        <div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 ">
+        <div className=" mx-auto grid grid-cols-1 md:grid-cols-2 ">
           {/* logo */}
           <div className="bg-yellow-50 flex justify-between md:justify-start md:items-center py-4  ">
             <Link to="/" className="px-5"><span className="text-xl">E</span>asy<span className="text-xl">E</span>ats</Link>

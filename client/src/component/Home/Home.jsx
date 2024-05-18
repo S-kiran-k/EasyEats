@@ -2,7 +2,7 @@ import "./Home.css";
 import { Exploremenudata, FoodList } from "../../Api/Api";
 import Topdishescard from "../Topdishescard/Topdishescard";
 import Exploredatamenu from "../Exploredatamenu/Exploredatamenu";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
     const navigate = useNavigate();
@@ -39,9 +39,17 @@ function Home() {
                 <h1 className="mx-auto w-[80%] pt-5 font-semibold text-2xl underline">Top Dishes Near you</h1>
                 <div className="mx-auto w-[80%] grid grid-cols-1 md:grid-cols-3 gap-6 py-5">
 
-                    {FoodList.map((data, index) => (
-                        <Topdishescard key={index} image={data.image} name={data.name} index={index} price={data.price} description={data.description} />
-                    ))}
+                    {FoodList.map((data) => (
+                        <Topdishescard
+                            key={data.id}
+                            index={data.restaurantId}
+                            image={data.image}
+                            name={data.name}
+                            description={data.description}
+                            price={data.price}
+                        />
+                    ))
+                    }
                 </div>
             </section>
         </>

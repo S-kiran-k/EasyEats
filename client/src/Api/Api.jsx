@@ -36,6 +36,7 @@ export const Exploremenudata = [
 export const FoodList = [
     {
         id: "1",
+        restaurantId:"1",
         name: "Greek Salad",
         image: "https://ik.imagekit.io/0oeuxr64bc/Easy%20Eats/frontend_assets/food_1.png?updatedAt=1715666425786",
         price: 12,
@@ -45,6 +46,7 @@ export const FoodList = [
     {
         id: "2",
         name: "Veg Salad",
+        restaurantId: "2",
         image: "https://ik.imagekit.io/0oeuxr64bc/Easy%20Eats/frontend_assets/food_2.png?updatedAt=1715666432192",
         price: 10,
         description: "A fresh salad made with a variety of vegetables, perfect for a healthy meal.",
@@ -52,6 +54,8 @@ export const FoodList = [
     },
     {
         id: "3",
+        restaurantId: "3",
+
         name: "Clove Salad",
         image: "https://ik.imagekit.io/0oeuxr64bc/Easy%20Eats/frontend_assets/food_3.png?updatedAt=1715666453196",
         price: 15,
@@ -61,6 +65,7 @@ export const FoodList = [
     // Add more food items here
     {
         id: "4",
+        restaurantId: "4",
         name: "Grilled Halloumi Salad",
         image: "https://ik.imagekit.io/0oeuxr64bc/Easy%20Eats/frontend_assets/food_3.png?updatedAt=1715666453196",
         price: 15,
@@ -71,6 +76,7 @@ export const FoodList = [
     {
         id: "5",
         name: "Chicken Alfredo Pasta",
+        restaurantId: "5",
         image: "https://ik.imagekit.io/0oeuxr64bc/Easy%20Eats/frontend_assets/food_5.png?updatedAt=1715666454834",
         price: 18,
         description: "Creamy Alfredo sauce served over tender chicken breast and fettuccine pasta.",

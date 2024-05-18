@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+// npm i 
+// Step 1 : Create .env
+// Step 2 : npx prisma migrate dev
+// Step 3 : npx prisma generate
+// Step 4 : npm start
+
+
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+
+model user{
+  user_id String @unique @default(cuid())
+  name String 
+  email String @unique
+  password String
+}
