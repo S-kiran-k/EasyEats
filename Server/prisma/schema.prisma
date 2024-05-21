@@ -2,7 +2,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 // npm i 
 // Step 1 : Create .env
 // Step 2 : npx prisma migrate dev
@@ -21,6 +20,7 @@ datasource db {
 model user{
   user_id String @unique @default(cuid())
   name String 
+  age String
   email String @unique
   password String
 }

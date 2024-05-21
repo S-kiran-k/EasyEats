@@ -87,6 +87,8 @@ const Approuter = createBrowserRouter([
         element: <ViewMore />,
         errorElement: <Errorpage />
     }
-]);
+],
+);
+
 
 export default Approuter;
