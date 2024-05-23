@@ -2,20 +2,43 @@ import { Link } from "react-router-dom";
 
 const Topdishescard = (props) => {
   return (
-    <div className="flex flex-col justify-start items-center p-4 max-w-96 bg-white shadow-md rounded-lg">
-      <img className="rounded-lg" src={props.image} alt={props.name} />
-      <div className="space-y-3">
-        <p>{props.name}</p>
-        <p>{props.description}</p>
-        <p className="font-bold">Price: {props.price}$</p>
+    <>
+      <div className="group relative block overflow-hidden rounded-lg bg-gray-100">
         <Link to={"/restaurant/" + props.index}>
-          <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4">
-            Order Now{props.index}
-          </button>
+          <img
+            src={props.image}
+            alt={props.name}
+            loading="lazy"
+            className="h-60 w-full object-cover object-center transition duration-200 group-hover:scale-110"
+          />
+          <span className="absolute left-0 top-3 rounded-r-lg bg-red-500 px-3 py-1.5 text-sm font-semibold uppercase tracking-wider text-white">
+            -{props.offer}%
+          </span>
         </Link>
+        <div className="flex flex-col justify-between gap-2 p-4 min-h-40">
+          <div>
+            <Link
+              to={"/restaurant/" + props.index}
+              className="font-bold text-gray-800 transition duration-100 hover:text-gray-500 lg:text-lg"
+            >
+              {props.name}
+            </Link>
+            <p className="text-sm text-gray-500 lg:text-base">
+              {props.description}
+            </p>
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="font-bold text-gray-600 lg:text-lg">${props.price}</span>
+            <span className="text-sm text-red-500 line-through">$39.99</span>
+          </div>
+        </div>
       </div>
-    </div>
+
+    </>
   );
 };
 
 export default Topdishescard;
+
+
+

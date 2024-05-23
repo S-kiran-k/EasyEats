@@ -40,6 +40,7 @@ export const FoodList = [
         name: "Greek Salad",
         image: "https://ik.imagekit.io/0oeuxr64bc/Easy%20Eats/frontend_assets/food_1.png?updatedAt=1715666425786",
         price: 12,
+        offer: 30,
         description: "A delicious salad with feta cheese, olives, and a fresh assortment of vegetables.",
         category: "Salad"
     },
@@ -49,6 +50,7 @@ export const FoodList = [
         restaurantId: "2",
         image: "https://ik.imagekit.io/0oeuxr64bc/Easy%20Eats/frontend_assets/food_2.png?updatedAt=1715666432192",
         price: 10,
+        offer: 20,
         description: "A fresh salad made with a variety of vegetables, perfect for a healthy meal.",
         category: "Salad"
     },
@@ -59,6 +61,7 @@ export const FoodList = [
         name: "Clove Salad",
         image: "https://ik.imagekit.io/0oeuxr64bc/Easy%20Eats/frontend_assets/food_3.png?updatedAt=1715666453196",
         price: 15,
+        offer: 44,
         description: "A refreshing salad featuring crisp greens, cloves, cherry tomatoes, cucumber, and a light vinaigrette.",
         category: "Salad"
     },
@@ -69,6 +72,7 @@ export const FoodList = [
         name: "Grilled Halloumi Salad",
         image: "https://ik.imagekit.io/0oeuxr64bc/Easy%20Eats/frontend_assets/food_3.png?updatedAt=1715666453196",
         price: 15,
+        offer: 10,
         description: "A delicious salad featuring grilled halloumi cheese, fresh tomatoes, cucumbers, bell peppers, olives, and fresh herbs, dressed with a light vinaigrette.",
         category: "Salad"
     }
@@ -79,6 +83,7 @@ export const FoodList = [
         restaurantId: "5",
         image: "https://ik.imagekit.io/0oeuxr64bc/Easy%20Eats/frontend_assets/food_5.png?updatedAt=1715666454834",
         price: 18,
+        offer: 50,
         description: "Creamy Alfredo sauce served over tender chicken breast and fettuccine pasta.",
         category: "Pasta"
     },
