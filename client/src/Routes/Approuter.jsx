@@ -4,6 +4,7 @@ import ViewMore from '../component/ViewMore/ViewMore';
 import Errorpage from '../component/Errorpage/Errorpage';
 import RestaurantDetailsPage from '../component/RestaurantDetailsPage/RestaurantDetailsPage';
 import Loading from '../component/Loading/Loading';
+import Exploredatamenu from '../component/Exploredatamenu/Exploredatamenu';
 
 const Login = lazy(() => import('../component/Login/Login'));
 const Applayout = lazy(() => import('../Applayout/Applayout'));
@@ -17,7 +18,7 @@ const Approuter = createBrowserRouter([
     {
         path: "/",
         element: (
-            <Suspense fallback={<div><Loading/></div>}>
+            <Suspense fallback={<div><Loading /></div>}>
                 <Applayout />
             </Suspense>
         ),
@@ -25,7 +26,7 @@ const Approuter = createBrowserRouter([
             {
                 path: "/",
                 element: (
-                    <Suspense fallback={<div><Loading/></div>}>
+                    <Suspense fallback={<div><Loading /></div>}>
                         <Home />
                     </Suspense>
                 ),
@@ -60,6 +61,14 @@ const Approuter = createBrowserRouter([
                     <Suspense fallback={<div><Loading /></div>}>
                         <RestaurantDetailsPage />
                     </Suspense>
+                ),
+            },
+            {
+                path: "/menu/:id",
+                element: (
+                    <Suspense fallback={<div><Loading /></div>}>
+                        <Exploredatamenu/>
+                        </Suspense>
                 ),
             }
         ],

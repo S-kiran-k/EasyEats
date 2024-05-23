@@ -1,13 +1,16 @@
 export const Exploremenudata = [
     {
+        id:"1",
         menu_name:"Salad",
         menu_image:"https://ik.imagekit.io/0oeuxr64bc/Easy%20Eats/frontend_assets/menu_1.png?updatedAt=1715666510021"
     },
     {
+        id:"2",
         menu_name: "Rolls",
         menu_image: "https://ik.imagekit.io/0oeuxr64bc/Easy%20Eats/frontend_assets/menu_2.png?updatedAt=1715666507116"
     },
     {
+        id:"3",
         menu_name: "Deserts",
         menu_image: "https://ik.imagekit.io/0oeuxr64bc/Easy%20Eats/frontend_assets/menu_3.png?updatedAt=1715666507217"
     },
