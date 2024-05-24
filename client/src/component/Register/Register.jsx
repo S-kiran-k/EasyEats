@@ -3,8 +3,9 @@ import { string, z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from "axios"
 import { toast } from 'sonner';
-
+import { useNavigate } from "react-router-dom";
 import "./Register.css"
+
 const schema = z.object({
     name: string().min(1, { message: "*required" }),
     email: string().email({ message: "*required" }),
@@ -17,7 +18,9 @@ const schema = z.object({
     path: ["confirm"], // path of error
 });
 
+
 function Register() {
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(schema),
         mode: "onBlur"
@@ -28,6 +31,7 @@ function Register() {
             const res = await axios.post("http://localhost:8080/register", data)
             if (res.status === 200) {
                 toast.success("Registered successfully");
+                navigate("/")
             }
 
         }

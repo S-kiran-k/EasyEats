@@ -1,11 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
-import ViewMore from '../component/ViewMore/ViewMore';
-import Errorpage from '../component/Errorpage/Errorpage';
-import RestaurantDetailsPage from '../component/RestaurantDetailsPage/RestaurantDetailsPage';
 import Loading from '../component/Loading/Loading';
-import Exploredatamenu from '../component/Exploredatamenu/Exploredatamenu';
-
+import { Toaster } from 'sonner';
 const Login = lazy(() => import('../component/Login/Login'));
 const Applayout = lazy(() => import('../Applayout/Applayout'));
 const Register = lazy(() => import('../component/Register/Register'));
@@ -13,7 +9,10 @@ const Search = lazy(() => import('../component/Search/Search'));
 const Home = lazy(() => import('../component/Home/Home'));
 const About = lazy(() => import('../component/About/About'));
 const Cart = lazy(() => import('../component/Cart/Cart'));
-
+const MenuCard = lazy(() => import('../component/MenuCard/MenuCard'))
+const ViewMenu = lazy(() => import('./../component/ViewMenu/ViewMenu'))
+const RestaurantDetailsPage = lazy(() => import('../component/RestaurantDetailsPage/RestaurantDetailsPage'))
+const Errorpage = lazy(() => import('../component/Errorpage/Errorpage'))
 const Approuter = createBrowserRouter([
     {
         path: "/",
@@ -67,9 +66,14 @@ const Approuter = createBrowserRouter([
                 path: "/menu/:id",
                 element: (
                     <Suspense fallback={<div><Loading /></div>}>
-                        <Exploredatamenu/>
+                        <MenuCard/>
                         </Suspense>
-                ),
+                )
+            },
+            {
+                path: "/viewmenu",
+                element: <ViewMenu />,
+                errorElement: <Errorpage />
             }
         ],
         errorElement: <Errorpage />
@@ -91,13 +95,9 @@ const Approuter = createBrowserRouter([
             </Suspense>
         ),
         errorElement: <Errorpage />
-    },
-    {
-        path: "/viewmenu",
-        element: <ViewMore />,
-        errorElement: <Errorpage />
     }
-],
+], <Toaster richColors position="top-right" closeButton />
+
 );
 
 
