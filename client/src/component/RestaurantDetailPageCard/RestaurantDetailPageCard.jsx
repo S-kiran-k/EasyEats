@@ -8,7 +8,9 @@ const RestaurantDetailPageCard = (props) => {
                 <p className="text-sm text-gray-600">{props.category}</p>
                 <p className="text-base text-gray-700">{props.description}</p>
                 <p className="text-lg font-bold text-gray-900">${props.price}</p>
-                <button>
+                <button onClick={()=>{
+                    console.log("create")
+                }}>
                     Add to Cart
                 </button>
             </div>

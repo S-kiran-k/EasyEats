@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Searchicon } from "../../assets/Icons";
 import { FoodList } from "../../Api/Api";
 import Header from "../Header/Header";
+import ExploremenudataDetails from "../ExploremenudataDetails/ExploremenudataDetails";
+import PopularCuisines from "./PopularCuisines/PopularCuisines";
 
 function Search() {
   const [searchData, setSearchData] = useState("");
@@ -33,10 +35,10 @@ function Search() {
                   const filterData = FoodList.filter(
                     (item) => (item.name.toLowerCase().includes(searchData.toLowerCase()))
                   )
-                  if(searchData===""){
+                  if (searchData === "") {
                     setFilterData("")
                   }
-                  else{
+                  else {
                     setFilterData(filterData)
 
                   }
@@ -48,15 +50,17 @@ function Search() {
             </div>
           </div>
         </div>
+          {filterData.length === 0 && <PopularCuisines />}
         <div className="mx-auto w-[70%] h-[100vh] grid grid-cols-1 md:grid-cols-3 gap-6 py-10">
           {filterData.map((item, index) => (
             <div key={index}>
               {console.log(item)}
               <p>{item.name}</p>
-              <img src={item.image}/>
+              <img src={item.image} />
             </div>
           ))}
         </div>
+
       </div>
     </>
   );

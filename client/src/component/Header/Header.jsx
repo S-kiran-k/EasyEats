@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Header.css";
 import { useState } from "react";
-import Cart from './../Cart/Cart';
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

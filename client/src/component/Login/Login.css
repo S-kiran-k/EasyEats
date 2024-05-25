@@ -25,3 +25,20 @@
         background-position: 0 50%;
     }
 }
+/* Custom styles for the toast notifications */
+.sonner-toast {
+    width: 400px;
+    /* Increase the width */
+    padding: 20px;
+    /* Add padding for better appearance */
+    font-size: 16px;
+    /* Increase font size */
+    border-radius: 8px;
+    /* Round the corners */
+    background-color: #f0f0f0;
+    /* Light background color */
+    color: #333;
+    /* Dark text color */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Add a subtle shadow */
+}

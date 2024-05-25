@@ -1,9 +1,13 @@
 import { useForm } from "react-hook-form"
 import { string, z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from "axios"
+import { toast } from 'sonner';
+import { useNavigate } from "react-router-dom";
 import "./Register.css"
+
 const schema = z.object({
-    names: string().min(1, { message: "*required" }),
+    name: string().min(1, { message: "*required" }),
     email: string().email({ message: "*required" }),
     age: string().min(2, { message: "*required" }).refine(value => parseInt(value) > 18, { message: "Age must be greater than 18" }),//age > 18  age < 18 your not elegible
     password: string().min(6, { message: "Please enter more than 6 characters" }),
@@ -14,13 +18,26 @@ const schema = z.object({
     path: ["confirm"], // path of error
 });
 
+
 function Register() {
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(schema),
         mode: "onBlur"
     })
-    const handleSubmitform = (e) => {
-        console.log(e);
+    const handleSubmitform = async (data) => {
+        try {
+
+            const res = await axios.post("http://localhost:8080/register", data)
+            if (res.status === 200) {
+                toast.success("Registered successfully");
+                navigate("/")
+            }
+
+        }
+        catch (error) {
+            toast.error("User Already Registered")
+        }
     }
     return (
         <>
@@ -35,9 +52,9 @@ function Register() {
                                 <div>
                                     <label htmlFor="names" className="block mb-2 text-sm font-medium text-gray-900 ">Name</label>
                                     <input type="text" name="names" id="names" className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Andrew Stewart"
-                                        {...register("names")}
+                                        {...register("name")}
                                     />
-                                    <p className="text-red-500">{errors?.names?.message}</p> 
+                                    <p className="text-red-500">{errors?.names?.message}</p>
                                 </div>
                                 <div>
                                     <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
@@ -56,14 +73,14 @@ function Register() {
                                 </div>
                                 <div>
                                     <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 ">Password</label>
-                                    <input type="password" name="password" placeholder="••••••••" id="password" 
+                                    <input type="password" name="password" placeholder="••••••••" id="password"
                                         {...register("password")} className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                     <p className="text-red-500">{errors?.password?.message}</p>
 
                                 </div>
                                 <div>
                                     <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 ">confirmPassword</label>
-                                    <input type="password" name="confirm" placeholder="••••••••" id="confirm" 
+                                    <input type="password" name="confirm" placeholder="••••••••" id="confirm"
                                         {...register("confirm")} className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                                     <p className="text-red-500">{errors?.confirm?.message}</p>
 

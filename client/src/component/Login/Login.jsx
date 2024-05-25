@@ -1,22 +1,39 @@
 import { useForm } from "react-hook-form"
 import { z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Toaster, toast } from 'sonner'
+import { toast } from 'sonner'
 import "./Login.css"
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 function Login() {
     const schema = z.object({
-        email: z.string().email({message:"*required"}),
-        password: z.string().min(6, { message: "Please enter more than 6 characters" })   
+        email: z.string().email({ message: "*required" }),
+        password: z.string().min(6, { message: "Please enter more than 6 characters" })
     })
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(schema),
         mode: "onBlur",
     }
     );
-    const handleSubmitForm = (data) => {
-        console.log(data);
-        toast.success('Event has been created')
+    const navigate = useNavigate();
 
+    const handleSubmitForm = async (data) => {
+        try {
+            if (!data) {
+                toast.error('Wrong Credentials')
+            }
+            else {
+                const req = await axios.post("http://localhost:8080/login", data)
+                if (req.status == 200) {
+                    toast.success('Logged in Successfully')
+                    console.log("data there")
+                    navigate("/")
+                }
+            }
+        }
+        catch (error) {
+            toast.error('Wrong Credentials')
+        }
     }
 
     return (
@@ -38,13 +55,12 @@ function Login() {
                                 </div>
                                 <div>
                                     <label className="block mb-2 text-sm font-medium text-gray-900 " htmlFor="password">password:</label>
-                                    <input placeholder="••••••••"  className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" id="password" type="password"
+                                    <input placeholder="••••••••" className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" id="password" type="password"
                                         {...register("password")} />
                                     <p className="text-red-500">{errors?.password?.message}</p>
                                 </div>
                                 <button className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit">Submit</button>
                             </form>
-                            <Toaster richColors position="top-right" />
                         </div>
                     </div>
                 </div>
@@ -53,5 +69,4 @@ function Login() {
         </>
     )
 }
-
 export default Login
