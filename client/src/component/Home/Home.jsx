@@ -3,8 +3,13 @@ import { FoodList } from "../../Api/Api";
 import Topdishescard from "../Topdishescard/Topdishescard";
 import { useNavigate } from "react-router-dom";
 import ExploremenudataDetails from "../ExploremenudataDetails/ExploremenudataDetails";
+import { useContext } from 'react';
+import Usercontext from './../../context/Usercontext';
 
 function Home() {
+
+    const { name , age } = useContext(Usercontext)
+    console.log(name , age)
     const navigate = useNavigate();
     return (
         <>
@@ -31,7 +36,7 @@ function Home() {
                 <div className="w-[80%] mx-auto">
                     <ExploremenudataDetails />
                 </div>
-              
+
                 <hr className="py-5 my-5 w-[80%] mx-auto" />
                 <h1 className="mx-auto w-[80%] pt-5 font-semibold text-2xl underline">Top Dishes Near you</h1>
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-[80%] mx-auto py-5">

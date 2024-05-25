@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import "./Header.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import Cartcontext from "../../context/Cartcontext";
 
 function Header() {
+  const data = useContext(Cartcontext)
+  const { cartData } = data
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -56,23 +59,34 @@ function Header() {
             </li>
             <li>
               <Link
-                to="/cart"
+                to="/search/cart"
                 aria-label="Pricing"
                 title="Pricing"
                 className="font-medium hover:text-[#FC8019] tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
               >
-                Cart
+                Cart {cartData.length}
               </Link>
             </li>
             <li>
-              <a
-                href="/about"
+              <Link
+                to="/about"
                 aria-label="About us"
                 title="About us"
                 className="font-medium hover:text-[#FC8019] tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
               >
                 About us
-              </a>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/cart"
+                aria-label="About us"
+                title="About us"
+                className="font-medium hover:text-[#FC8019] tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+              >
+                Carts
+                
+              </Link>
             </li>
             <li>
               <Link

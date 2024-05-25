@@ -1,10 +1,14 @@
+import { useContext } from "react"
 import Header from "../Header/Header"
+import Cartcontext from "../../context/Cartcontext"
 
 function Cart() {
+    const data = useContext(Cartcontext);
+    console.log(data)
+    const { clearCart ,deleteProduct ,cartData } = data
     return (
         <>
-            <Header />
-            <div className="bg-white py-6 sm:py-8 lg:py-12">
+            {/* <div className="bg-white py-6 sm:py-8 lg:py-12">
                 <div className="mx-auto max-w-screen-lg px-4 md:px-8">
                     <div className="mb-6 sm:mb-10 lg:mb-16">
                         <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">
@@ -12,7 +16,6 @@ function Cart() {
                         </h2>
                     </div>
                     <div className="mb-6 flex flex-col gap-4 sm:mb-8 md:gap-6">
-                        {/* product - start */}
                         <div className="flex flex-wrap gap-x-4 overflow-hidden rounded-lg border sm:gap-y-4 lg:gap-6">
                             <a
                                 href="#"
@@ -87,8 +90,7 @@ function Cart() {
                                 </div>
                             </div>
                         </div>
-                        {/* product - end */}
-                        {/* product - start */}
+                  
                         <div className="flex flex-wrap gap-x-4 overflow-hidden rounded-lg border sm:gap-y-4 lg:gap-6">
                             <a
                                 href="#"
@@ -163,8 +165,7 @@ function Cart() {
                                 </div>
                             </div>
                         </div>
-                        {/* product - end */}
-                        {/* product - start */}
+                      
                         <div className="flex flex-wrap gap-x-4 overflow-hidden rounded-lg border sm:gap-y-4 lg:gap-6">
                             <a
                                 href="#"
@@ -239,9 +240,7 @@ function Cart() {
                                 </div>
                             </div>
                         </div>
-                        {/* product - end */}
                     </div>
-                    {/* totals - start */}
                     <div className="flex flex-col items-end gap-4">
                         <div className="w-full rounded-lg bg-gray-100 p-4 sm:max-w-xs">
                             <div className="space-y-1">
@@ -268,9 +267,25 @@ function Cart() {
                             Check out
                         </button>
                     </div>
-                    {/* totals - end */}
                 </div>
-            </div>
+            </div> */}
+            {cartData.map((e)=>{
+                console.log(e)
+                return (
+                    <>
+                    <p>hi!</p>
+                        <button onClick={() => {
+                            deleteProduct(cartData)
+                        }}>delete</button>
+
+                    </>
+                )
+            })}
+            <p>Reseting</p>
+            {/* <button onClick={()=>{
+                clearCart()
+            }}>Clear Cart</button> */}
+           
 
         </>
     )

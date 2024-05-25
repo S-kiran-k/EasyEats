@@ -2,13 +2,15 @@ import { createBrowserRouter } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import Loading from '../component/Loading/Loading';
 import { Toaster } from 'sonner';
+import Applayout2 from '../Applayout/Applayout2';
+import Cart from '../component/Cart/Cart';
 const Login = lazy(() => import('../component/Login/Login'));
 const Applayout = lazy(() => import('../Applayout/Applayout'));
 const Register = lazy(() => import('../component/Register/Register'));
 const Search = lazy(() => import('../component/Search/Search'));
 const Home = lazy(() => import('../component/Home/Home'));
 const About = lazy(() => import('../component/About/About'));
-const Cart = lazy(() => import('../component/Cart/Cart'));
+// const Cart = lazy(() => import('../component/Cart/Cart'));
 const MenuCard = lazy(() => import('../component/MenuCard/MenuCard'))
 const ViewMenu = lazy(() => import('./../component/ViewMenu/ViewMenu'))
 const RestaurantDetailsPage = lazy(() => import('../component/RestaurantDetailsPage/RestaurantDetailsPage'))
@@ -55,6 +57,10 @@ const Approuter = createBrowserRouter([
                 ),
             },
             {
+                path: "/cart",
+                element: <Cart />,
+            },
+            {
                 path: "/restaurant/:id",
                 element: (
                     <Suspense fallback={<div><Loading /></div>}>
@@ -66,8 +72,8 @@ const Approuter = createBrowserRouter([
                 path: "/menu/:id",
                 element: (
                     <Suspense fallback={<div><Loading /></div>}>
-                        <MenuCard/>
-                        </Suspense>
+                        <MenuCard />
+                    </Suspense>
                 )
             },
             {
@@ -81,21 +87,30 @@ const Approuter = createBrowserRouter([
     {
         path: "/search",
         element: (
-            <Suspense fallback={<div><Loading /></div>}>
-                <Search />
-            </Suspense>
+            <Applayout2 />
         ),
-        errorElement: <Errorpage />
+        children: [
+            {
+                path: "/search/",
+                element: (
+                    <Suspense fallback={<div><Loading /></div>}>
+                        <Search />
+                    </Suspense>
+                ),
+                errorElement: <Errorpage />
+            },
+            {
+                path: "/search/cart",
+                element: (
+                    // <Suspense fallback={<div><Loading /></div>}>
+                    <Cart />
+                    // </Suspense>
+                ),
+                errorElement: <Errorpage />
+            }
+        ]
     },
-    {
-        path: "/cart",
-        element: (
-            <Suspense fallback={<div><Loading /></div>}>
-                <Cart />
-            </Suspense>
-        ),
-        errorElement: <Errorpage />
-    }
+
 ], <Toaster richColors position="top-right" closeButton />
 
 );
