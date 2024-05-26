@@ -3,13 +3,10 @@ import { FoodList } from "../../Api/Api";
 import Topdishescard from "../Topdishescard/Topdishescard";
 import { useNavigate } from "react-router-dom";
 import ExploremenudataDetails from "../ExploremenudataDetails/ExploremenudataDetails";
-import { useContext } from 'react';
-import Usercontext from '../../context/UserContext';
+
 
 function Home() {
 
-    const { name , age } = useContext(Usercontext)
-    console.log(name , age)
     const navigate = useNavigate();
     return (
         <>

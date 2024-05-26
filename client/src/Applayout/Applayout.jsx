@@ -4,7 +4,6 @@ import Header from "../component/Header/Header"
 import { Toaster } from "sonner"
 import Cartcontext from './../context/Cartcontext';
 import { useState } from 'react';
-import UserContext from "../context/UserContext";
 
 function Applayout() {
   //   const dummydata = {
@@ -42,13 +41,11 @@ function Applayout() {
 
   return (
     <>
-      <UserContext.Provider value={{ name: "", }}>
         <Cartcontext.Provider value={{ cartData: cartData, addProduct, clearCart, deleteProduct }}>
           <Header />
           <Outlet />
           <Footer />
         </Cartcontext.Provider>
-      </UserContext.Provider>
       <Toaster richColors position="top-right" closeButton />
 
     </>
