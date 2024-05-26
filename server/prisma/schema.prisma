@@ -8,31 +8,35 @@ generator client {
 // Step 3 : npx prisma generate
 // Step 4 : npm start
 datasource db {
-  provider  = "postgresql"
-  url  	    = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
   // uncomment next line if you use Prisma <5.10
   // directUrl = env("DATABASE_URL_UNPOOLED")
 }
+
 model Menucard {
-  id         String @unique @default(uuid())
-  menu_name  String
-  menu_image String
-}
-model FoodList{
-  id String @unique @default(uuid())
-  restaurantId String 
-  name String
-  image String
-  price String
-  offer String
-  description String
-  category String
+  id           Int    @default(autoincrement())
+  menu_card_id String @unique @default(uuid())
+  menu_name    String
+  menu_image   String
 }
 
-model user{
-  user_id String @unique @default(cuid())
-  name String 
-  age String
-  email String @unique
+model FoodList {
+  id           Int    @unique @default(autoincrement())
+  foodlist_id  String @id @unique @default(uuid())
+  restaurantId String
+  name         String
+  image        String
+  price        String
+  offer        String
+  description  String
+  category     String
+}
+
+model user {
+  user_id  String @unique @default(cuid())
+  name     String
+  age      String
+  email    String @unique
   password String
 }
