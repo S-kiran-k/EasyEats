@@ -18,7 +18,6 @@ function Search() {
 
   return (
     <>
-      <Header />
       <div className="2xl:container py-10">
         <div className="mx-auto w-[70%] ">
           <div className="flex flex-col">
