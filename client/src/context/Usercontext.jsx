@@ -1,9 +1,7 @@
 import { createContext } from "react"
+const UserContext = createContext({
+    userData: {}, // Will have the user data
+    setUser: () => { }, // Set user data
+});
 
-
-
-const Usercontext = createContext ({
-    userData : {}
-})
-
-export default Usercontext
+export default UserContext

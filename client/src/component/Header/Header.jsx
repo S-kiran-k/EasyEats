@@ -4,8 +4,8 @@ import { useContext, useState } from "react";
 import Cartcontext from "../../context/Cartcontext";
 
 function Header() {
-  const data = useContext(Cartcontext)
-  const { cartData } = data
+  const data = useContext(Cartcontext);
+  const { cartData } = data;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -59,12 +59,26 @@ function Header() {
             </li>
             <li>
               <Link
-                to="/search/cart"
-                aria-label="Pricing"
-                title="Pricing"
+                to="/cart"
+                aria-label="Cart"
+                title="Cart"
                 className="font-medium hover:text-[#FC8019] tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
               >
-                Cart {cartData.length}
+                <div className="flex items-center justify-center">
+                  <svg
+                    data-name="Layer 1"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    height="1em"
+                    width="1em"
+                    className="text-4xl mr-2"
+                  >
+                    <path d="M8.5 19a1.5 1.5 0 101.5 1.5A1.5 1.5 0 008.5 19zM19 16H7a1 1 0 010-2h8.491a3.013 3.013 0 002.885-2.176l1.585-5.55A1 1 0 0019 5H6.74A3.007 3.007 0 003.92 3H3a1 1 0 000 2h.921a1.005 1.005 0 01.962.725l.155.545v.005l1.641 5.742A3 3 0 007 18h12a1 1 0 000-2zm-1.326-9l-1.22 4.274a1.005 1.005 0 01-.963.726H8.754l-.255-.892L7.326 7zM16.5 19a1.5 1.5 0 101.5 1.5 1.5 1.5 0 00-1.5-1.5z" />
+                  </svg>
+                  <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full" id="lblCartCount"> {cartData.length}</span>
+                </div>
+              
+            
               </Link>
             </li>
             <li>
@@ -75,17 +89,6 @@ function Header() {
                 className="font-medium hover:text-[#FC8019] tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
               >
                 About us
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/cart"
-                aria-label="About us"
-                title="About us"
-                className="font-medium hover:text-[#FC8019] tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
-              >
-                Carts
-                
               </Link>
             </li>
             <li>
@@ -210,9 +213,10 @@ function Header() {
                       <li>
                         <Link
                           to="/cart"
-                          aria-label="About us"
-                          title="About us"
+                          aria-label="Cart"
+                          title="Cart"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          onClick={toggleMenu}
                         >
                           Cart
                         </Link>
@@ -240,5 +244,3 @@ function Header() {
 }
 
 export default Header;
-
-

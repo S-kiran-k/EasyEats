@@ -2,19 +2,19 @@ import { createBrowserRouter } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import Loading from '../component/Loading/Loading';
 import { Toaster } from 'sonner';
-import Applayout2 from '../Applayout/Applayout2';
-import Cart from '../component/Cart/Cart';
 const Login = lazy(() => import('../component/Login/Login'));
 const Applayout = lazy(() => import('../Applayout/Applayout'));
 const Register = lazy(() => import('../component/Register/Register'));
 const Search = lazy(() => import('../component/Search/Search'));
 const Home = lazy(() => import('../component/Home/Home'));
 const About = lazy(() => import('../component/About/About'));
-// const Cart = lazy(() => import('../component/Cart/Cart'));
-const MenuCard = lazy(() => import('../component/MenuCard/MenuCard'))
-const ViewMenu = lazy(() => import('./../component/ViewMenu/ViewMenu'))
-const RestaurantDetailsPage = lazy(() => import('../component/RestaurantDetailsPage/RestaurantDetailsPage'))
-const Errorpage = lazy(() => import('../component/Errorpage/Errorpage'))
+const Cart = lazy(() => import('../component/Cart/Cart'));
+const MenuCard = lazy(() => import('../component/MenuCard/MenuCard'));
+const ViewMenu = lazy(() => import('../component/ViewMenu/ViewMenu'));
+const RestaurantDetailsPage = lazy(() => import('../component/RestaurantDetailsPage/RestaurantDetailsPage'));
+const Errorpage = lazy(() => import('../component/Errorpage/Errorpage'));
+import Applayout2 from './../Applayout/Applayout2';
+
 const Approuter = createBrowserRouter([
     {
         path: "/",
@@ -57,10 +57,6 @@ const Approuter = createBrowserRouter([
                 ),
             },
             {
-                path: "/cart",
-                element: <Cart />,
-            },
-            {
                 path: "/restaurant/:id",
                 element: (
                     <Suspense fallback={<div><Loading /></div>}>
@@ -80,40 +76,36 @@ const Approuter = createBrowserRouter([
                 path: "/viewmenu",
                 element: <ViewMenu />,
                 errorElement: <Errorpage />
+            },
+            {
+                path: "/cart",
+                element: (
+                    <Suspense fallback={<div><Loading /></div>}>
+                        <Cart />
+                    </Suspense>
+                ),
+                errorElement: <Errorpage />
             }
         ],
         errorElement: <Errorpage />
     },
     {
         path: "/search",
-        element: (
-            <Applayout2 />
-        ),
+        element: <Applayout2 />
+        ,
         children: [
             {
-                path: "/search/",
+                path: "",
                 element: (
                     <Suspense fallback={<div><Loading /></div>}>
                         <Search />
                     </Suspense>
                 ),
                 errorElement: <Errorpage />
-            },
-            {
-                path: "/search/cart",
-                element: (
-                    // <Suspense fallback={<div><Loading /></div>}>
-                    <Cart />
-                    // </Suspense>
-                ),
-                errorElement: <Errorpage />
             }
-        ]
-    },
-
-], <Toaster richColors position="top-right" closeButton />
-
-);
-
+        ],
+        errorElement: <Errorpage />
+    }
+], <Toaster richColors position="top-right" closeButton />);
 
 export default Approuter;

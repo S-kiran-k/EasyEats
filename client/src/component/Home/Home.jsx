@@ -4,7 +4,7 @@ import Topdishescard from "../Topdishescard/Topdishescard";
 import { useNavigate } from "react-router-dom";
 import ExploremenudataDetails from "../ExploremenudataDetails/ExploremenudataDetails";
 import { useContext } from 'react';
-import Usercontext from './../../context/Usercontext';
+import Usercontext from '../../context/UserContext';
 
 function Home() {
 

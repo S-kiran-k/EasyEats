@@ -2,10 +2,9 @@ import { Outlet } from "react-router-dom"
 import Footer from "../component/Footer/Footer"
 import Header from "../component/Header/Header"
 import { Toaster } from "sonner"
-// import Usercontext from '../context/Usercontext';
 import Cartcontext from './../context/Cartcontext';
 import { useState } from 'react';
-import Usercontext from "../context/Usercontext";
+import UserContext from "../context/UserContext";
 
 function Applayout() {
   //   const dummydata = {
@@ -15,28 +14,41 @@ function Applayout() {
 
   //   }
   const [cartData, setCartData] = useState([])
-  const [data , setData] = useState()
+  // const [data , setData] = useState()
 
-  const addProduct = (data) => {
+  const addProduct = (data) => { // create
     setCartData([...cartData, data])
   }
-  const clearCart = () => {
+  const clearCart = () => {//clear
     setCartData([])
   }
-  const deleteProduct = (id) => {
-    cartData.filter((e) => {
-      return e.id != id
-    })
+
+  // const updateProduct = (itemId, quantity) => { // update
+  //   const updatedData = cartData.map((item) => {
+  //     if (item.u_id === itemId) {
+  //       return { ...item, quantity: quantity };
+  //     }
+  //     return item;
+  //   });
+  //   setCartData(updatedData);
+  // };
+  const deleteProduct = (id) => {//delete
+    console.log(id)
+    const updatedCartItem = cartData.filter((e) => e.index !== id)
+    setCartData(updatedCartItem)
   }
+
+
+
   return (
     <>
-      <Usercontext.Provider value={{name:"" , }}>
+      <UserContext.Provider value={{ name: "", }}>
         <Cartcontext.Provider value={{ cartData: cartData, addProduct, clearCart, deleteProduct }}>
           <Header />
           <Outlet />
           <Footer />
         </Cartcontext.Provider>
-      </Usercontext.Provider>
+      </UserContext.Provider>
       <Toaster richColors position="top-right" closeButton />
 
     </>
