@@ -23,7 +23,7 @@ function Login() {
                 toast.error('Wrong Credentials')
             }
             else {
-                const req = await axios.post("http://localhost:8080/login", data)
+                const req = await axios.post("https://easyeats-1.onrender.com/login", data)
                 if (req.status == 200) {
                     toast.success('Logged in Successfully')
                     console.log("data there")

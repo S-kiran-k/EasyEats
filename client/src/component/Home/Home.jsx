@@ -14,7 +14,7 @@ function Home() {
 
         try {
             // setLoading(true)
-            const response = await axios.get("http://localhost:8080/foodlist");
+            const response = await axios.get("https://easyeats-1.onrender.com/foodlist");
             console.log(response.data.data);
             setFoodList(response.data.data);
 

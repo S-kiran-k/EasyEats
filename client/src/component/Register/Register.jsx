@@ -28,7 +28,7 @@ function Register() {
     const handleSubmitform = async (data) => {
         try {
 
-            const res = await axios.post("http://localhost:8080/register", data)
+            const res = await axios.post("https://easyeats-1.onrender.com/register", data)
             if (res.status === 200) {
                 toast.success("Registered successfully");
                 navigate("/")
