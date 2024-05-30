@@ -37,11 +37,22 @@ function Applayout() {
     setCartData(updatedCartItem)
   }
 
-
+  const addToCart = (product) => {
+    setCartData((prevCartData) => {
+      const existingProduct = prevCartData.find(item => item.id === product.id);
+      if (existingProduct) {
+        return prevCartData.map(item =>
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      } else {
+        return [...prevCartData, { ...product, quantity: 1 }];
+      }
+    });
+  };
 
   return (
     <>
-        <Cartcontext.Provider value={{ cartData: cartData, addProduct, clearCart, deleteProduct }}>
+      <Cartcontext.Provider value={{ cartData, addProduct, clearCart, deleteProduct, addToCart, setCartData }}>
           <Header />
           <Outlet />
           <Footer />

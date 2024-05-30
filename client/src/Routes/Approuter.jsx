@@ -14,12 +14,12 @@ const ViewMenu = lazy(() => import('../component/ViewMenu/ViewMenu'));
 const RestaurantDetailsPage = lazy(() => import('../component/RestaurantDetailsPage/RestaurantDetailsPage'));
 const Errorpage = lazy(() => import('../component/Errorpage/Errorpage'));
 import Applayout2 from './../Applayout/Applayout2';
-
+import Testing from '../component/Testing/Testing';
 const Approuter = createBrowserRouter([
     {
         path: "/",
         element: (
-            <Suspense fallback={<div><Loading /></div>}>
+            <Suspense>
                 <Applayout />
             </Suspense>
         ),
@@ -27,7 +27,7 @@ const Approuter = createBrowserRouter([
             {
                 path: "/",
                 element: (
-                    <Suspense fallback={<div><Loading /></div>}>
+                    <Suspense  >
                         <Home />
                     </Suspense>
                 ),
@@ -35,7 +35,7 @@ const Approuter = createBrowserRouter([
             {
                 path: "/login",
                 element: (
-                    <Suspense fallback={<div><Loading /></div>}>
+                    <Suspense  >
                         <Login />
                     </Suspense>
                 ),
@@ -43,7 +43,7 @@ const Approuter = createBrowserRouter([
             {
                 path: "/register",
                 element: (
-                    <Suspense fallback={<div><Loading /></div>}>
+                    <Suspense  >
                         <Register />
                     </Suspense>
                 ),
@@ -51,7 +51,7 @@ const Approuter = createBrowserRouter([
             {
                 path: "/about",
                 element: (
-                    <Suspense fallback={<div><Loading /></div>}>
+                    <Suspense  >
                         <About />
                     </Suspense>
                 ),
@@ -59,7 +59,7 @@ const Approuter = createBrowserRouter([
             {
                 path: "/restaurant/:id",
                 element: (
-                    <Suspense fallback={<div><Loading /></div>}>
+                    <Suspense  >
                         <RestaurantDetailsPage />
                     </Suspense>
                 ),
@@ -67,7 +67,7 @@ const Approuter = createBrowserRouter([
             {
                 path: "/menu/:id",
                 element: (
-                    <Suspense fallback={<div><Loading /></div>}>
+                    <Suspense  >
                         <MenuCard />
                     </Suspense>
                 )
@@ -78,9 +78,13 @@ const Approuter = createBrowserRouter([
                 errorElement: <Errorpage />
             },
             {
+                path: "/testing",
+                element: <Testing />
+            },
+            {
                 path: "/cart",
                 element: (
-                    <Suspense fallback={<div><Loading /></div>}>
+                    <Suspense  >
                         <Cart />
                     </Suspense>
                 ),
@@ -97,7 +101,7 @@ const Approuter = createBrowserRouter([
             {
                 path: "",
                 element: (
-                    <Suspense fallback={<div><Loading /></div>}>
+                    <Suspense  >
                         <Search />
                     </Suspense>
                 ),
@@ -105,7 +109,7 @@ const Approuter = createBrowserRouter([
             }
         ],
         errorElement: <Errorpage />
-    }
+    },
 ], <Toaster richColors position="top-right" closeButton />);
 
 export default Approuter;

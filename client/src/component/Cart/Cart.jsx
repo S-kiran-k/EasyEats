@@ -1,9 +1,12 @@
+
+
 import { useContext, useState, useEffect } from "react";
 import Cartcontext from "../../context/Cartcontext";
 
 function Cart() {
-    const { cartData, clearCart, deleteProduct, updateProduct } = useContext(Cartcontext);
+    const { cartData, clearCart, deleteProduct } = useContext(Cartcontext);
     const [isLoading, setIsLoading] = useState(true);
+    const [totalAmount, setTotalAmount] = useState(0);
 
     useEffect(() => {
         // Simulate data fetching
@@ -11,6 +14,18 @@ function Cart() {
             setIsLoading(false);
         }, 1000); // Adjust the delay as needed
     }, []);
+
+    useEffect(() => {
+        calculateTotalPrice();
+    }, [cartData]);
+
+    const calculateTotalPrice = () => {
+        const total = cartData.reduce((sum, item) => {
+            const price = parseFloat(item.price) || 0;
+            return sum + price;
+        }, 0);
+        setTotalAmount(total);
+    };
 
     if (isLoading) {
         return (
@@ -25,18 +40,17 @@ function Cart() {
     }
 
     if (cartData.length === 0) {
-        return <>
+        return (
             <div className="bg-gray-100 py-5 h-[100vh] flex justify-center items-center">
                 <div className="container mx-auto mt-24 text-center">
                     <h1 className="text-3xl font-semibold text-gray-800 mb-4">Cart Empty</h1>
-                    <p className="text-lg text-gray-600">Your shopping cart is currently empty.</p>
+                    <p className="text-lg text-gray-600">Your Food cart is currently empty.</p>
                 </div>
             </div>
-        </>;
+        );
     } else {
         return (
             <>
-                
                 <div className="mb-6 sm:mb-10 lg:mb-16 py-4">
                     <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">
                         Your Cart
@@ -52,9 +66,9 @@ function Cart() {
                                         className="group relative block h-48 w-32 overflow-hidden bg-gray-100 sm:h-56 sm:w-40"
                                     >
                                         <img
-                                            src="https://images.unsplash.com/photo-1612681621979-fffe5920dbe8?auto=format&q=75&fit=crop&w=200"
+                                            src={item.image}
                                             loading="lazy"
-                                            alt="Photo by Thái An"
+                                            alt={item.name}
                                             className="h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
                                         />
                                     </a>
@@ -66,12 +80,11 @@ function Cart() {
                                             >
                                                 {item.name}
                                             </a>
-                                            <span className="block text-gray-500">Size: S</span>
-                                            <span className="block text-gray-500">Color: White</span>
+                                            <span className="block text-gray-500">Category: {item.category}</span>
                                         </div>
                                         <div>
                                             <span className="mb-1 block font-bold text-gray-800 md:text-lg">
-                                                $15.00
+                                                ${item.price}
                                             </span>
                                             <span className="flex items-center gap-1 text-sm text-gray-500">
                                                 <svg
@@ -88,7 +101,7 @@ function Cart() {
                                                         d="M5 13l4 4L19 7"
                                                     />
                                                 </svg>
-                                                In stock
+                                                In Cart
                                             </span>
                                         </div>
                                     </div>
@@ -116,11 +129,13 @@ function Cart() {
                                                 Delete
                                             </button>
                                         </div>
+
                                         <div className="ml-4 pt-3 md:ml-8 md:pt-2 lg:ml-16">
                                             <span className="block font-bold text-gray-800 md:text-lg">
-                                                $15.00
+                                                ${item.price}
                                             </span>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +147,7 @@ function Cart() {
                         <div className="space-y-1">
                             <div className="flex justify-between gap-4 text-gray-500">
                                 <span>Subtotal</span>
-                                <span>$129.99</span>
+                                <span>${totalAmount.toFixed(2)}</span>
                             </div>
                             <div className="flex justify-between gap-4 text-gray-500">
                                 <span>Shipping</span>
@@ -143,21 +158,23 @@ function Cart() {
                             <div className="flex items-start justify-between gap-4 text-gray-800">
                                 <span className="text-lg font-bold">Total</span>
                                 <span className="flex flex-col items-end">
-                                    <span className="text-lg font-bold">$134.98 USD</span>
+                                    <span className="text-lg font-bold">${(totalAmount + 4.99).toFixed(2)}</span>
                                     <span className="text-sm text-gray-500">including VAT</span>
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div className=" space-x-5">
-                        <button className="inline-block rounded-lg bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 md:text-base" onClick={() => clearCart()} >
+                    <div className="space-x-5">
+                        <button
+                            className="inline-block rounded-lg bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 md:text-base"
+                            onClick={clearCart}>
                             Clear Cart
                         </button>
-                        <button className="inline-block rounded-lg bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 md:text-base">
+                        <button
+                            className="inline-block rounded-lg bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 md:text-base">
                             Check out
                         </button>
                     </div>
-                    
                 </div>
             </>
         );

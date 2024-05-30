@@ -1,9 +1,11 @@
 const { PrismaClient } = require('@prisma/client');
 const express = require('express'); // Correct module import
 const bcrypt = require("bcrypt");
+const Razorpay = require("razorpay");
 const cors = require('cors')
 const app = express(); // Create an instance of the eximport { PrismaClient } from '@prisma/client';
 const port = 8080;
+require("dotenv").config();
 
 
 
@@ -36,6 +38,9 @@ app.get("/", (req, res) => {
 //     //Send Data to frontend [a message to frontend] 
 //     res.json({ message: "Data from the get", data: allData })
 // })
+
+
+
 
 
 app.post("/register", async (req, res) => {
@@ -148,6 +153,9 @@ app.post('/login', async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 });
+
+
+
 app.get("/menu", async (req, res) => {
     //
     //
@@ -217,17 +225,17 @@ app.get("/foodlist/:id", async (req, res) => {
 app.post("/foodlist", async (req, res) => {
     try {
         const { restaurantId, name, image, price, offer, description, category } = req.body;
-        const existingFoodItem = prisma.foodList.findUnique({
-            where:{
-                name: name
-            }
-        })
-        if (existingFoodItem) {
-            return res.status(409).json({
-                success: false,
-                message: "Food item already present"
-            });
-        }
+        // const existingFoodItem = prisma.foodList.findUnique({
+        //     where:{
+        //         name: name
+        //     }
+        // })
+        // if (existingFoodItem) {
+        //     return res.status(409).json({
+        //         success: false,
+        //         message: "Food item already present"
+        //     });
+        // }
         const newFoodItem = await prisma.foodList.create({
             data: { restaurantId, name, image, price, offer, description, category }
         });
@@ -262,8 +270,64 @@ app.delete("/foodlist", async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 });
+
+
+
+// Payements
+app.post("/order", async (req, res) => {
+    try {
+
+        const razorpay = new Razorpay({
+            key_id: process.env.RAZORPAY_KEY_ID,
+            key_secret: process.env.RAZORPAY_SECRET,
+        });
+
+        const options = req.body; // Options might include amount, currency, etc.
+        console.log(options);
+
+        // Create an order using Razorpay API
+        const order = await razorpay.orders.create(options);
+
+        // Check if the order creation was successful
+        if (!order) {
+            // If order creation failed, return a 500 Internal Server Error response
+            return res.status(500).send("Error creating order");
+        } else {
+            // If order creation succeeded, send the order details in the response to frontend
+            res.json(order);
+        }
+    } catch (error) {
+        // Handle errors
+        console.error("Error creating order:", error);
+        res.status(500).send("Error creating order");
+    }
+});
+
+app.post("/order/validate", async (req, res) => {
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+        req.body;
+
+    const sha = crypto.createHmac("sha256", process.env.RAZORPAY_SECRET);
+    // order_id + "|" + razorpay_payment_id
+    sha.update(`${razorpay_order_id}|${razorpay_payment_id}`);
+    const digest = sha.digest("hex");
+
+    if (digest !== razorpay_signature) {
+        return res.status(400).json({ msg: "Transaction is not legit!" });
+    }
+
+    res.json({
+        msg: "success",
+        orderId: razorpay_order_id,
+        paymentId: razorpay_payment_id,
+    });
+});
+
 app.listen(port, () => {
     console.log(`Listening on port ${port}`); // Template string for better readability
 });
+
+
+
 
 // added new data 

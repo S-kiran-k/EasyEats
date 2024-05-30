@@ -57,6 +57,17 @@ function Header() {
                 Search
               </Link>
             </li>
+           
+            <li>
+              <Link
+                to="/about"
+                aria-label="About us"
+                title="About us"
+                className="font-medium hover:text-[#FC8019] tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+              >
+                About us
+              </Link>
+            </li>
             <li>
               <Link
                 to="/cart"
@@ -77,18 +88,8 @@ function Header() {
                   </svg>
                   <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full" id="lblCartCount"> {cartData.length}</span>
                 </div>
-              
-            
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/about"
-                aria-label="About us"
-                title="About us"
-                className="font-medium hover:text-[#FC8019] tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
-              >
-                About us
+
+
               </Link>
             </li>
             <li>
