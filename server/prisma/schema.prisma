@@ -40,3 +40,9 @@ model user {
   email    String @unique
   password String
 }
+
+model RefreshToken {
+  id String @unique @default(uuid())
+  user_id String 
+  token String
+}

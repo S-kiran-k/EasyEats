@@ -3,6 +3,7 @@ const express = require('express'); // Correct module import
 const bcrypt = require("bcrypt");
 const Razorpay = require("razorpay");
 const cors = require('cors')
+var jwt = require('jsonwebtoken');
 const app = express(); // Create an instance of the eximport { PrismaClient } from '@prisma/client';
 const port = 8080;
 require("dotenv").config();
@@ -40,6 +41,34 @@ app.get("/", (req, res) => {
 // })
 
 
+// app.post('/login',async(req,res)=>{
+//     try{
+//         const data = req.body //get the data from the frontend
+//         const userData = await prisma.user.findUnique({//getting the email here
+//             where:{
+//                 email:data.email
+//             }
+//         })
+//         //check weather the user is present or not
+
+//         if(userData === null ){
+//             res.status(404).json({message:"User not present pls register"})
+//         }
+//         const passwordMatch = await bcrypt.compare(data.password, userData.password);// hashing the password
+//         if(passwordMatch){
+//             res.status(202).json({message:"logged in successfully"})
+//         }
+//         console.log(passwordMatch)
+//     }
+//     catch(e){
+//         console.log(e)
+//     }
+
+
+//     //db logic
+
+//     //give the data to the frontend
+// })
 
 
 
@@ -91,39 +120,10 @@ app.post("/register", async (req, res) => {
     }
 })
 
-// app.post('/login',async(req,res)=>{
-
-//     try{
-//         const data = req.body //get the data from the frontend
-//         const userData = await prisma.user.findUnique({//getting the email here
-//             where:{
-//                 email:data.email
-//             }
-//         })
-//         //check weather the user is present or not
-
-//         if(userData === null ){
-//             res.status(404).json({message:"User not present pls register"})
-//         }
-//         const passwordMatch = await bcrypt.compare(data.password, userData.password);// hashing the password
-//         if(passwordMatch){
-//             res.status(202).json({message:"logged in successfully"})
-//         }
-//         console.log(passwordMatch)
-//     }
-//     catch(e){
-//         console.log(e)
-//     }
-
-
-//     //db logic
-
-//     //give the data to the frontend
-// })
 
 app.post('/login', async (req, res) => {
     try {
-        const { email, password } = req.body; // Get the data from the frontend
+        const { email, password, name } = req.body; // Get the data from the frontend
 
         // Retrieve user data from the database based on the provided email
         const userData = await prisma.user.findUnique({
@@ -131,7 +131,7 @@ app.post('/login', async (req, res) => {
                 email: email
             }
         });
-
+        console.log(userData)
         if (!userData) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -142,7 +142,26 @@ app.post('/login', async (req, res) => {
         if (passwordMatch) {
             // Passwords match, login successful
             // console.log("Login successful");
-            res.json({ message: "Login successful" });
+            var AccessToken = jwt.sign({ username: name }, 'abc', {
+                expiresIn: '5min'
+            });
+            var RefreshToken = jwt.sign({ username: name }, 'abc', {
+                expiresIn: '1hr'
+            });
+
+            await prisma.refreshToken.create({
+                data: {
+                    user_id: userData.user_id, // Use the user's unique ID
+                    token: RefreshToken
+                }
+            });
+            
+            res.json({
+                message: "Login successful", token: {
+                    AccessToken: AccessToken,
+                    RefreshToken: RefreshToken
+                }
+            });
         } else {
             // Passwords don't match, handle incorrect password scenario
             // console.log("Incorrect password");
@@ -247,7 +266,7 @@ app.post("/foodlist", async (req, res) => {
 });
 app.put("/foodlist", async (req, res) => {
     try {
-        const { foodlist_id,restaurantId, name, image, price, offer, description, category } = req.body;
+        const { foodlist_id, restaurantId, name, image, price, offer, description, category } = req.body;
         const newFoodItem = await prisma.foodList.update({
             where: { foodlist_id },
             data: { restaurantId, name, image, price, offer, description, category }
@@ -260,8 +279,8 @@ app.put("/foodlist", async (req, res) => {
 });
 app.delete("/foodlist", async (req, res) => {
     try {
-    const { foodlist_id} = req.body;
-       await prisma.foodList.update({
+        const { foodlist_id } = req.body;
+        await prisma.foodList.update({
             where: { foodlist_id },
         });
         res.status(201).json({ message: "Food item delete successfully", data: newFoodItem });
